@@ -3,6 +3,10 @@ package com.nodom.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,8 +56,16 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, Model model){
+	public String processAddNewProductForm(@ModelAttribute("newProduct") Product newProduct, Model model, BindingResult result){
+		String[] suppressedFileds = result.getSuppressedFields();
+		if(suppressedFileds.length > 0)
+			throw new RuntimeException("attempting to bind disallowed fields : " + StringUtils.arrayToCommaDelimitedString(suppressedFileds));
 		productService.addProduct(newProduct);
 		return "redirect:/products";
+	}
+	
+	@InitBinder
+	public void initialiseBinder(WebDataBinder binder){
+		binder.setDisallowedFields("unitsInIOrder", "discontinued");
 	}
 }

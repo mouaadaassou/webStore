@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page isELIgnored="false"%>
 
 <html>
@@ -25,8 +26,7 @@ tstrap.min.css">
 			<fieldset>
 				<legend>Add new product</legend>
 				<div class="form-group">
-					<label class="control-label col-lg-2 col-lg-2" for="productId">Product
-						Id</label>
+					<label class="control-label col-lg-2 col-lg-2" for="productId"><spring:message code="addProduct.form.productId.label1" /></label>
 					<div class="col-lg-10">
 						<form:input id="productId" path="productId" type="text" class="form:input-large" />
 					</div>
@@ -63,20 +63,6 @@ tstrap.min.css">
 					<label for="unitsInStock" class="control-label col-lg-2 col-lg-2">Units In Stock</label>
 					<div class="col-lg-10">
 						<form:input id="unitsInStock" path="unitsInStock" type="text" class="form:input-large" />
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label for="unitsInOrder" class="control-label col-lg-2 col-lg-2">Units In Order</label>
-					<div class="col-lg-10">
-						<form:input id="unitsInOrder" path="unitsInOrder" type="text" class="form:input-large" />
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label class="control-label col-lg-2" for="discontinued">Discontinued</label>
-					<div class="col-lg-10">
-						<form:checkbox id="discontinued" path="discontinued" />
 					</div>
 				</div>
 				<div class="form-group">
